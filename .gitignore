@@ -1,0 +1,6 @@
+# Ignore all jupyter notebooks
+*.ipynb
+*.yaml
+
+# But include this file
+# !build/index.html

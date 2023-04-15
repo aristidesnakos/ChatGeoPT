@@ -3,9 +3,16 @@ import openai
 import requests
 import streamlit as st
 import tiktoken
-
 import os
+import sys
+import yaml
 
+sys.path.append(r"/Users/ari/Desktop/ChatGeoPT")
+
+stream = open("./env.yaml", "r")
+docs = yaml.safe_load(stream)
+for k, v in docs.items():
+    os.environ[k] = v
 
 # Define the Overpass API endpoint URL
 OVERPASS_API_URL = "https://overpass-api.de/api/interpreter"
@@ -28,7 +35,11 @@ Human: {human_input}
 Assistant:"""
 
 # Reader template string, to be used for generating text responses drawing on Overpass API responses
-READER_TEMPLATE = """Read the following Overpass API response carefully. Use the information in it to answer the prompt "{prompt}" Your answer should not mention the words "API" or "Overpass." Your answer should sound like it was spoken by someone with personal knowledge of the question's answer. Your answer should be very concise, but also informative and fun. Format any names or places you get from the API response as bold text in Markdown.
+READER_TEMPLATE = """Read the following Overpass API response carefully. Use the information in it to answer the prompt "{prompt}" 
+Your answer should not mention the words "API" or "Overpass." 
+Your answer should sound like it was spoken by someone with personal knowledge of the question's answer. 
+Your answer should be very concise, but also informative and fun. 
+Format any names or places you get from the API response as bold text in Markdown.
 Overpass API Response:
 Answer: {response}
 """
